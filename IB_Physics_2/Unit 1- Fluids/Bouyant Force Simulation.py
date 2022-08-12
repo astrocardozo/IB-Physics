@@ -1,12 +1,5 @@
 from vpython import *
 
-#Define our live graphs
-graph = graph(width=400,height=300,align="left", title='Velocity Vs. Time', xtitle='Time(s)',ytitle='Velocity(m/s)', foreground=color.black, background=color.white)
-
-
-#Define the curves to which our graphs will draw 
-Graph_yvel = gcurve(graph = graph,color=color.blue)
-
 scene = canvas(width=500, height=500, center=vector(0,25,0))
 scene.background = color.white
 
@@ -53,6 +46,12 @@ particle = box(pos=vector(0,60,0), mass = m_st, color=color.red, length=10,width
 attach_arrow(particle, "Fg", color=color.orange)
 attach_arrow(particle, "Fb", color=color.green)
 
+#Define our live graphs
+graph = graph(width=400,height=300,align="left", title='Velocity Vs. Time', xtitle='Time(s)',ytitle='Velocity(m/s)', foreground=color.black, background=color.white)
+
+
+#Define the curves to which our graphs will draw 
+Graph_yvel = gcurve(graph = graph,color=color.blue)
 
 while (particle.pos.y > -water.size.y):
     rate(100)
