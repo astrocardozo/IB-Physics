@@ -1,7 +1,7 @@
 import numpy as np  
-import matplotlib.pyplot as plt
-from matplotlib import cm 
-import pandas as pd
+# import matplotlib.pyplot as plt
+# from matplotlib import cm 
+
 
 rho = 1E3
 C = 0.47
@@ -20,14 +20,14 @@ while v < 20:         #loop through h = 0 to h = -100
     FsList.append(Fs)     #Adding each new value of P to the list 
     vList.append(v)     #Adding each new value of h to the list 
     
-print('Stokes Drag',FsList)
-print('Velocity',vList)
+# print('Stokes Drag',FsList)
+# print('Velocity',vList)
 
-plt.scatter(vList,FsList)
-plt.xlabel('Depth (m)')
-plt.ylabel('Pressure (Pa)')
-plt.title('Pressure vs Depth in Water')
-plt.show()
+# plt.scatter(vList,FsList)
+# plt.xlabel('Depth (m)')
+# plt.ylabel('Pressure (Pa)')
+# plt.title('Pressure vs Depth in Water')
+# plt.show()
 
 from vpython import *
 
