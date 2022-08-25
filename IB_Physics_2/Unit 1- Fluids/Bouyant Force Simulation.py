@@ -1,7 +1,15 @@
 from vpython import *
 
-scene = canvas(width=500, height=500, center=vector(0,25,0))
-scene.background = color.white
+scene = canvas(width=500, height=500,background=color.white)
+
+run = False
+def runbutton(b):
+    global run
+    if run:b.text = 'Run'
+    else: b.text = 'Pause'
+    run = not run
+    
+button(text='Run', bind=runbutton)
 
 def Fb(a):
     Fb_mag = rho_w*g*volume
@@ -40,9 +48,10 @@ Sim_max = 300
 volume = m_st/rho_st
 
 
-water = box(pos= vector(0,0,0),color=color.blue,size=vector(100,100,100),opacity = 0.5)
-particle = box(pos=vector(0,60,0), mass = m_st, color=color.red, length=10,width=10,height=10,velocity=vector(0,vy,0)
+water = box(pos= vector(0,0,0),color=color.blue,size=vector(100,300,100),opacity = 0.5)
+particle = sphere(pos=vector(0,200,0),radius=10, mass = m_st, color=color.red, length=10,width=10,height=10,velocity=vector(0,vy,0)
            ,Fg=vector(0,0,0),Fb=vector(0,0,0))
+scene.camera.follow(particle)
 attach_arrow(particle, "Fg", color=color.orange)
 attach_arrow(particle, "Fb", color=color.green)
 
@@ -55,12 +64,13 @@ Graph_yvel = gcurve(graph = graph,color=color.blue)
 
 while (particle.pos.y > -water.size.y):
     rate(100)
-    particle.velocity = particle.velocity + acc(particle)*dt
-    particle.pos = particle.pos + particle.velocity*dt
-    particle.Fg = Fg(particle.pos)
-    particle.Fb = Fb(particle.pos)
-    Graph_yvel.plot(pos=(t,particle.velocity.y))
-    if (particle.pos.y > Sim_max or particle.pos.y < -Sim_max):  
-    # Stop updating position of particle if goes outside region of interest
-        break
-    t = t+dt
+    if run:
+        particle.velocity = particle.velocity + acc(particle)*dt
+        particle.pos = particle.pos + particle.velocity*dt
+        particle.Fg = Fg(particle.pos)
+        particle.Fb = Fb(particle.pos)
+        Graph_yvel.plot(pos=(t,particle.velocity.y))
+        if (particle.pos.y > Sim_max or particle.pos.y < -Sim_max):  
+        # Stop updating position of particle if goes outside region of interest
+            break
+        t = t+dt
